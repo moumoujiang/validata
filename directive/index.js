@@ -26,6 +26,7 @@ const lifeCycle = {
     el.nothing = nothing
     el.onlyId = until.onlyId()
     el.flag = true
+
     console.log(el.onlyId)
     // 将每个绑定的元素添加到vue中的数组中
     vnode.context[binding.value.bind].push({
@@ -72,10 +73,11 @@ const lifeCycle = {
   },
   // 元素解除指令时时触发
   unbind: function(el, binding, vnode) {
-    debugger;
+    // debugger;
+    console.log(el)
     console.log(el.onlyId)
     // 删除vue数组中的解绑元素与元素上挂载的值、规则、非必填项
-    let index = vnode.context[binding.value.bind].findIndex(item => item.$el.onlyId != el.onlyId)
+    let index = vnode.context[binding.value.bind].findIndex(item => item.$el.onlyId == el.onlyId)
     vnode.context[binding.value.bind][index].$el.clear()
     
     delete vnode.context[binding.value.bind][index].$el.value
@@ -89,8 +91,8 @@ const lifeCycle = {
     el.removeEventListener("focus", onFocus, false);
     // 解除清除事件
     vnode.context[binding.value.bind][index].$el.clear = null
-    delete vnode.context[binding.value.bind][index]
-    
+    vnode.context[binding.value.bind].splice(index, 1)
+    console.log(vnode.context[binding.value.bind])
   }
 }
 
