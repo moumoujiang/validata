@@ -38,7 +38,7 @@ const clear = function() {
   if (el.container) {
       parentNode = el.container;
   } else {
-      parentNode = el.parentNode
+      parentNode = el.parentEl
   }
   if(parentNode.lastChild.classList.contains('error_msg')) {
     parentNode.removeChild(parentNode.lastChild)
@@ -53,7 +53,7 @@ const showError = function(el, msg) {
   if (el.container) {
       parentNode = el.container;
   } else {
-      parentNode = el.parentNode
+      parentNode = el.parentEl
   }
   console.log(parentNode)
   if(parentNode.lastChild.classList.contains('error_msg')) {

@@ -16,7 +16,7 @@ const vueValidate = {}
 // 指令的生命周期
 const lifeCycle = {
   // 指令绑定到元素时触发
-  bind: function(el, binding, vnode) {
+  inserted: function(el, binding, vnode) {
     // 是否是必填项
     var nothing = binding.value.nothing || null
 
@@ -26,6 +26,7 @@ const lifeCycle = {
     el.nothing = nothing
     el.onlyId = until.onlyId()
     el.flag = true
+    el.parentEl = el.parentNode // 解决v-ifparentNode为null的问题
 
     console.log(el.onlyId)
     // 将每个绑定的元素添加到vue中的数组中
@@ -85,6 +86,7 @@ const lifeCycle = {
     delete vnode.context[binding.value.bind][index].$el.nothing
     delete vnode.context[binding.value.bind][index].$el.onlyId
     delete vnode.context[binding.value.bind][index].$el.flag
+    delete vnode.context[binding.value.bind][index].$el.parentEl
     // 解除失去焦点事件
     el.removeEventListener("blur", onBlur, false);
     // 解除获得焦点事件
