@@ -21,4 +21,5 @@ vue表单验证
   idCard: '请输入身份证号',
 
   numberInterval: '两个数之间'
+  
 ---
