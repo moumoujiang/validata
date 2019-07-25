@@ -2,7 +2,7 @@
 vue表单验证
 ### 校验规则
 
-  >required: '不为空',
+  >required: '不为空',</br>
   >number: '请填入数字',
   >znumber: '请输入正数',
   >fnumber: '请输入负数',
