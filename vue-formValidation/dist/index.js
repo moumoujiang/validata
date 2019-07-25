@@ -5,7 +5,6 @@
  */
 
 import until from './until.js'
-import toast from './toast.js'
 import vd from './vdFunc.js'
 import domEvent from './domEvent.js'
 
@@ -44,16 +43,35 @@ const lifeCycle = {
         // 遍历vue数组对象中的每个元素的每个规则，遇到第一个不符合就停止
         for(let i=0,len=self.length;i<len&&self.flag;i++) {
           for(let j=0,reluLen=self[i].$el.rule.length;j<reluLen&&self.flag;j++) {
-            // 如果的非必填项并且为空值
-            if(self[i].$el.rule.includes('required')) {
-              self.flag = vd[self[i].$el.rule[j]](self[i].$el.value)
-              if(!self.flag) showError(self[i].$el, toast[self[i].$el.rule[j]])
-            }else {
-              if(self[i].$el.nothing == 'nothing' && self[i].$el.value == '') {
-                self.flag = true
+            // 将规则名拆分为  函数名、参数
+            let reg = /\w+/g;
+            let rule = self[i].$el.rule[j].match(reg)
+            if(rule.length>1) {
+              let ruleName = rule.shift() // 规则函数名   rule -> 参数
+              // 如果的非必填项并且为空值
+              if(self[i].$el.rule.includes('required')) {
+                self.flag = vd[ruleName](self[i].$el.value, rule)
+                if(!self.flag) showError(self[i].$el, ruleName, rule)
               }else {
+                if(self[i].$el.nothing == 'nothing' && self[i].$el.value == '') {
+                  self.flag = true
+                }else {
+                  self.flag = vd[ruleName](self[i].$el.value, rule)
+                  if(!self.flag) showError(self[i].$el, ruleName, rule)
+                }
+              }
+            }else {
+              // 如果的非必填项并且为空值
+              if(self[i].$el.rule.includes('required')) {
                 self.flag = vd[self[i].$el.rule[j]](self[i].$el.value)
-                if(!self.flag) showError(self[i].$el, toast[self[i].$el.rule[j]])
+                if(!self.flag) showError(self[i].$el, self[i].$el.rule[j])
+              }else {
+                if(self[i].$el.nothing == 'nothing' && self[i].$el.value == '') {
+                  self.flag = true
+                }else {
+                  self.flag = vd[self[i].$el.rule[j]](self[i].$el.value)
+                  if(!self.flag) showError(self[i].$el, self[i].$el.rule[j])
+                }
               }
             }
           }

@@ -1,5 +1,5 @@
-// 验证规则对应的提示
-const toast = {
+### 校验规则
+
   required: '不为空',
   number: '请填入数字',
   znumber: '请输入正数',
@@ -19,6 +19,4 @@ const toast = {
   idCard: '请输入身份证号',
 
   numberInterval: '两个数之间'
-}
-
-export default toast;
+---

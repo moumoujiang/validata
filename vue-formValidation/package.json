@@ -1,6 +1,6 @@
 {
-  "name": "vue-formValidation",
-  "version": "1.0.0",
+  "name": "mmj-vue-vd",
+  "version": "1.0.2",
   "description": "this is a vue's formValidation",
   "main": "dist/index.js",
   "private": false,

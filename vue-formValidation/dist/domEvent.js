@@ -5,20 +5,36 @@ import vd from './vdFunc.js'
 // 聚焦事件
 const onBlur = function(e) {
   var el = this
+  
   if(el.rule.includes('required')) {
     var flag = true
     for(var i=0,len=el.rule.length;i<len&&flag;i++) {
-      flag = vd[el.rule[i]](el.value)
-      if(!flag) showError(el, toast[el.rule[i]])
+      let reg = /\w+/g;
+      let rule = el.rule[i].match(reg)
+      let ruleName = rule.shift() // 规则函数名   rule -> 参数
+      if(rule.length>1) {
+        flag = vd[ruleName](el.value, rule)
+        if(!flag) showError(el, ruleName, rule)
+      }else {
+        flag = vd[ruleName](el.value)
+        if(!flag) showError(el, ruleName)
+      }
     }
   }else {
     if(el.nothing == 'nothing' && el.value == '') {
-
     }else {
       var flag = true
       for(var i=0,len=el.rule.length;i<len&&flag;i++) {
-        flag = vd[el.rule[i]](el.value)
-        if(!flag) showError(el, toast[el.rule[i]])
+        let reg = /\w+/g;
+        let rule = el.rule[i].match(reg)
+        let ruleName = rule.shift() // 规则函数名   rule -> 参数
+        if(rule.length>1) {
+          flag = vd[ruleName](el.value, rule)
+          if(!flag) showError(el, ruleName, rule)
+        }else {
+          flag = vd[ruleName](el.value)
+          if(!flag) showError(el, ruleName)
+        }
       }
     }
   }
@@ -42,16 +58,17 @@ const clear = function() {
 }
 
 // 验证不通过的提示信息
-const showError = function(el, msg) {
-  console.log(el)
+const showError = function(el, rule, interval=[0, 100]) {
   var parentNode = el.parentEl;
-  
-  console.log(parentNode)
   if(parentNode.lastChild.classList.contains('error_msg')) {
     return;
   }
   var span = document.createElement('span')
-  span.innerHTML = msg
+  if(rule == 'numberInterval') {
+    span.innerHTML = '请填入' + interval[0] + '-' + interval[1] + '之间的数'
+  }else{
+    span.innerHTML = toast[rule]
+  }
   span.style.color = '#ff0000'
   span.style.marginLeft = '3px'
   span.style.fontSize = '12px'
