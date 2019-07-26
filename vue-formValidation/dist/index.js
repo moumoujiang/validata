@@ -17,11 +17,18 @@ const lifeCycle = {
   // 指令绑定到元素时触发
   bind: function(el, binding, vnode) {
     // 是否是必填项
+    
     var nothing = binding.value.nothing || null
 
     // 将值、规则、非必填项挂载带元素上
-    el.value = vnode.data.domProps.value
-    el.rule = binding.value.rule
+    if(vnode.data.domProps) {
+      el.value = vnode.data.domProps.value 
+    }else if(vnode.data.attrs.value) {
+      el.value = vnode.data.attrs.value
+    }else {
+      el.value = ''
+    }
+    el.rule = binding.value.rule || []
     el.nothing = nothing
     el.onlyId = until.onlyId()
     
@@ -37,12 +44,12 @@ const lifeCycle = {
 
     // 给vue数组对象绑定验证方法，验证检测 => 在vue中调用$check方法获取验证结果
     if(!vnode.context[binding.value.bind].$check) {
-      vnode.context[binding.value.bind].$check = function() {
+      vnode.context[binding.value.bind].$check = function(hunger=false) {
         var self = this;
         self.flag = true; // 确保每次调用都能遍历验证规则
-        // 遍历vue数组对象中的每个元素的每个规则，遇到第一个不符合就停止
-        for(let i=0,len=self.length;i<len&&self.flag;i++) {
-          for(let j=0,reluLen=self[i].$el.rule.length;j<reluLen&&self.flag;j++) {
+        // 如果hunger=false 遍历vue数组对象中的每个元素的每个规则，遇到第一个不符合就停止
+        for(let i=0,len=self.length;i<len&&(self.flag||hunger);i++) {
+          for(let j=0,reluLen=self[i].$el.rule.length;j<reluLen&&(self.flag||hunger);j++) {
             // 将规则名拆分为  函数名、参数
             let reg = /\w+/g;
             let rule = self[i].$el.rule[j].match(reg)

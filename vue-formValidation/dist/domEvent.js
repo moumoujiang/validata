@@ -54,15 +54,16 @@ const clear = function() {
   if(parentNode.lastChild.classList.contains('error_msg')) {
     parentNode.removeChild(parentNode.lastChild)
     el.style.border = ''
+    el.classList.remove('error_input')
   }
 }
 
 // 验证不通过的提示信息
 const showError = function(el, rule, interval=[0, 100]) {
   var parentNode = el.parentEl;
-  if(parentNode.lastChild.classList.contains('error_msg')) {
-    return;
-  }
+  // if(parentNode.lastChild.classList.contains('error_msg')) {
+  //   return;
+  // }
   var span = document.createElement('span')
   if(rule == 'numberInterval') {
     span.innerHTML = '请填入' + interval[0] + '-' + interval[1] + '之间的数'
@@ -75,6 +76,7 @@ const showError = function(el, rule, interval=[0, 100]) {
   span.classList.add('error_msg')
   parentNode.append(span)
   el.style.border = '1px solid #ff0000'
+  el.classList.add('error_input')
 }
 
 export default {
