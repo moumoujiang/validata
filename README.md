@@ -61,7 +61,7 @@
   4. $check() 可传一个布尔值做参数，true验证所有，false知道有一个验证失败就停止，默认false
 
 ### 使用实例
-
+1. html
 ```
     <div class="input_group">
      <label>非必填项</label>
@@ -82,5 +82,14 @@
       </span>用元素包裹input时，提示信息显示位子
     </div>
 ```
+2. js
+  ```
+  data () {
+    return {
+      msg: '3221',
+      submitOk: []
+    }
+  }
+  ```
 ![img](./vue-formValidation/img/img.png "演示图")
 
