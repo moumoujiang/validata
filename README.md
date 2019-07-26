@@ -17,7 +17,7 @@
       Vue.use(vd) 
     `
 2. 在vue文件中使用
-   + submitOk: [] ->同组input绑定同意数组
+   + data里 submitOk: [] ->同组input绑定同意数组
    + 写入指令
       `<input type="text" v-vd="{rule:['numberInterval(1, 100)', 'required'],bind:'submitOk'}"  v-model="msg">`
    + 进行校验  var result = this.submitOk.$check()  返回值true/false  成功/失败
@@ -57,3 +57,30 @@
 ### 注意
   1. 使用v-for遍历input时，不可使用index作为key值，需使用唯一值作为key值
   2. 尽量同一提交表单绑定同一个数组对象
+  3. 必填优先级高于非必填，即require > nothing
+  4. $check() 可传一个布尔值做参数，true验证所有，false知道有一个验证失败就停止，默认false
+
+### 使用实例
+
+```
+    <div class="input_group">
+     <label>非必填项</label>
+     <input class="input" type="text" value="" v-vd="{rule:['number'],bind:'submitOk', nothing: 'nothing'}">
+    </div>
+    <div class="input_group">
+      <label>必填项</label>
+      <input class="input" type="text" value="dsfg" v-vd="{rule:['required'],bind:'submitOk'}">
+    </div>
+    <div class="input_group">
+      <label>填入数字</label>
+      <input class="input" type="text" value="dsfg" v-vd="{rule:['required', 'number'],bind:'submitOk'}">错误信息在最后提示
+    </div>
+    <div class="input_group">
+      <label>填入数字</label>
+      <span>
+        <input class="input" type="text" v-model="dsfg" v-vd="{rule:['required', 'number'],bind:'submitOk'}">
+      </span>用元素包裹input时，提示信息显示位子
+    </div>
+```
+![img](./vue-formValidation/img/img.png "演示图")
+
