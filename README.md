@@ -22,6 +22,13 @@
       `<input type="text" v-vd="{rule:['numberInterval(1, 100)', 'required'],bind:'submitOk'}"  v-model="msg">`
    + 进行校验  var result = this.submitOk.$check()  返回值true/false  成功/失败
    + 清除提示信息 el.clear()  el指当前元素，可用ref获取
+3. 参数 
+   + rule: 校验规则数组
+   + bind: 绑定的数组元素
+   + nothing: 是否为非必填项
+4. 样式修改
+   + 输入框样式修改：通过暴露出来的className-> error_input修改，修改border需!important
+   + 错误提示样式修改： 通过暴露出来的className-> error_msg修改，修改字体大小、颜色、偏移需!important
 
 ### 校验规则
 
@@ -46,3 +53,7 @@
   numberInterval: '两个数之间'</br>
   
 ---
+
+### 注意
+  1. 使用v-for遍历input时，不可使用index作为key值，需使用唯一值作为key值
+  2. 尽量同一提交表单绑定同一个数组对象
