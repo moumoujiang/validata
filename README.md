@@ -30,6 +30,8 @@
    + 输入框样式修改：通过暴露出来的className-> error_input修改，修改border需!important
    + 错误提示样式修改： 通过暴露出来的className-> error_msg修改，修改字体大小、颜色、偏移需!important
 
+---
+
 ### 校验规则
 
   required: '不为空',</br>
@@ -59,6 +61,8 @@
   2. 尽量同一提交表单绑定同一个数组对象
   3. 必填优先级高于非必填，即require > nothing
   4. $check() 可传一个布尔值做参数，true验证所有，false知道有一个验证失败就停止，默认false
+
+---
 
 ### 使用实例
 1. html
