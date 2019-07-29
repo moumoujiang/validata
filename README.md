@@ -111,3 +111,9 @@
   vd.customize('required', '内容不能为空')
    ```
 ![img](./vue-formValidation/img/img.png "演示图")
+
+### 打包
+
+```shell
+npm run build
+```
