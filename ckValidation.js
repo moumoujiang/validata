@@ -3,12 +3,16 @@
  * number:      数字
  *
  */
-var vueValidate = {},
-	vd = {}, // 验证规则对象
-	toast = {
-		required: '不为空',
-		number: '请填入数字'
-	};
+var vueValidate = {};
+
+	
+var vd = {};
+// 验证规则对象
+	
+var toast = {
+	required: '不为空',
+	number: '请填入数字'
+};
 // 验证规则函数
 
 // 非空
@@ -130,8 +134,10 @@ function onFocus(e) {
 }
 
 function clear() {
-	var el = this,
-		parentNode;
+	var el = this;
+
+		
+	var parentNode;
 	if (el.container) {
 		parentNode = el.container;
 	} else {
@@ -164,8 +170,10 @@ function showError(el, msg) {
 // 给每个元素加上一个唯一标识
 function onlyId() {
 	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-		var r = (Math.random() * 16) | 0,
-			v = c == 'x' ? r : (r & 0x3) | 0x8;
+		var r = (Math.random() * 16) | 0;
+
+			
+		var v = c == 'x' ? r : (r & 0x3) | 0x8;
 		return v.toString(16);
 	});
 }
