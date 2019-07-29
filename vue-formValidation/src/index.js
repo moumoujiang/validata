@@ -7,13 +7,10 @@
 import until from './until.js'
 import vd from './vdFunc.js'
 import domEvent from './domEvent.js'
-import customize from './customize.js'
 
 const { onBlur, onFocus, clear, showError } = domEvent
 
-const vueValidate = {
-  customize
-} 
+const vueValidate = {} 
 
 // 指令的生命周期
 const lifeCycle = {
@@ -55,19 +52,19 @@ const lifeCycle = {
           for(let j=0,reluLen=self[i].$el.rule.length;j<reluLen&&(self.flag||hunger);j++) {
             // 将规则名拆分为  函数名、参数
             let reg = /\w+/g;
-            let argsArr = self[i].$el.rule[j].match(reg)
-            if(argsArr.length>1) {
-              let ruleName = argsArr.shift() // 规则函数名   rule -> 参数
+            let rule = self[i].$el.rule[j].match(reg)
+            if(rule.length>1) {
+              let ruleName = rule.shift() // 规则函数名   rule -> 参数
               // 如果的非必填项并且为空值
               if(self[i].$el.rule.includes('required')) {
-                self.flag = vd[ruleName](self[i].$el.value, argsArr)
-                if(!self.flag) showError(self[i].$el, ruleName, argsArr)
+                self.flag = vd[ruleName](self[i].$el.value, rule)
+                if(!self.flag) showError(self[i].$el, ruleName, rule)
               }else {
                 if(self[i].$el.nothing == 'nothing' && self[i].$el.value == '') {
                   self.flag = true
                 }else {
-                  self.flag = vd[ruleName](self[i].$el.value, argsArr)
-                  if(!self.flag) showError(self[i].$el, ruleName, argsArr)
+                  self.flag = vd[ruleName](self[i].$el.value, rule)
+                  if(!self.flag) showError(self[i].$el, ruleName, rule)
                 }
               }
             }else {

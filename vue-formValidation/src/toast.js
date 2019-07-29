@@ -18,7 +18,7 @@ const toast = {
   postCode: '请输入邮编地址',
   idCard: '请输入身份证号',
 
-  numberInterval: '请填入{{min}}-{{max}}之间的数'
+  numberInterval: '两个数之间'
 }
 
 export default toast;
